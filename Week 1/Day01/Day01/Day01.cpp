@@ -62,7 +62,11 @@ int main()
 
     //calling a non-static method, use the variable...
     Calculator t1000;
+    Calculator t800;
     int diff = t1000.minus(7, 2);
+    t800.minus(5, 2);
+
+    double dbl = Calculator::mult(12, 3);
 
 
     /*
