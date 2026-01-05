@@ -1,5 +1,6 @@
 #include "Calculator.h"
 
+//the DEFINITION of the method
 int Calculator::minus(int number1, int number2)
 {
 	return number1 - number2;
@@ -8,4 +9,9 @@ int Calculator::minus(int number1, int number2)
 double Calculator::mult(double num, double factor)
 {
 	return num * factor;
+}
+
+bool Calculator::isEven(int number)
+{
+	return number % 2 == 0;
 }

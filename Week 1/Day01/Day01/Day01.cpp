@@ -4,6 +4,7 @@
 #include "Calculator.h"
 #include "Console.h"
 #include "Input.h"
+#include <Menu.h>
 
 int AddOne(int localNumber)
 {
@@ -65,6 +66,7 @@ int main()
     Calculator t800;
     int diff = t1000.minus(7, 2);
     t800.minus(5, 2);
+    double dVal = t800.mult(5, 10);
 
     double dbl = Calculator::mult(12, 3);
 
@@ -75,10 +77,28 @@ int main()
             Add an isEven method to the calculator.
             It should take 1 parameter and return a bool.
 
-            Call the method on the t1000 calculator instance and print the results.
+            Call the method on the t1000 calculator instance 
+            and print the results.
 
     */
+    bool wasEven = t1000.isEven(5);
+    if(wasEven)
+        Console::WriteLine("is even");
+    else
+        Console::WriteLine("is NOT even");
 
+
+    Menu cafe;
+    MenuItem item;
+    item.name = "bagels";
+    item.price = 2.99f;
+    cafe.AddMenuItem(item);
+    cafe.AddMenuItem({ "donuts",3.99f } );
+    cafe.AddMenuItem({ "bacon-egg McGriddle",5.99f } );
+    cafe.AddMenuItem({ "omelette", 3.99f } );
+    cafe.ShowMenu();
+    cafe.EraseItem("Bagels");
+    cafe.ShowMenu();
 
 
     /*
