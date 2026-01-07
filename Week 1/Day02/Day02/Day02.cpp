@@ -1,6 +1,8 @@
 ﻿#include <iostream>
 #include <string>
 #include <vector>
+#include "FullSailCourse.h"
+#include <Console.h>
 
 bool postFix(std::string& hero)
 {
@@ -33,8 +35,49 @@ void printInfo(const std::vector<int>& scores)
     std::cout << "size: " << scores.size() << "\tcapacity: " << scores.capacity() << "\n";
 }
 
+//copies are "expensive" (memory allocation + value copying)
+void PrintMe(int num)//pass by value (COPY)
+//num is a variable of the method
+{
+    std::cout << num;
+}
+//pass by REFERENCE
+//  NO copy
+void Print(int& num)
+{
+    //num points to the variable used when calling Print
+    //Print has access to the variable from a different scope
+    num++;
+}
+void Print(std::string& msg)
+{
+    std::cout << msg;
+}
+void Update(int speed, int& x)
+{
+    x += speed;
+}
+
+//when to use pass by reference:
+//  1) when the parameter is a class (generally)
+//  2) the method needs to change the variable in another scope
+//  3) to prevent a copy
 int main()
 {
+    int n = 5;
+    PrintMe(n);//num = n
+    Print(n);
+    int xPos = 5, speed = 15;
+    Update(speed, xPos);
+    std::cout << xPos;
+    int& nRef = n;
+    nRef++;
+    std::cout << n << "\n";
+    int n2 = 10;
+    //nRef still points to n.
+    //this will simply copy n2 to n
+    nRef = n2;
+
     /*
         ╔══════════════════════════════╗
         ║Parameters: Pass by Reference.║
@@ -51,14 +94,26 @@ int main()
 
 
     /*
-        CHALLENGE 1:
+    CHALLENGE 1:
 
-            Write a method to fill the vector of floats with grades.
-            1) pass it in by reference
-            2) add 10 grades to the vector
+        Add a method to FullSailCourse to fill the vector of floats with grades.
+        1) pass it in by reference
+        2) add 10 grades to the vector
+        3) after calling the method, print out the vector
+
+        use rand(). It generates a number between 0 and 32767
+        limit it to 0-100
 
     */
     std::vector<float> grades;
+    FullSailCourse pg2;
+    pg2.AddGrades(grades);
+    Console::WriteLine("\n\nPG2 2601", ConsoleColor::Cyan);
+    for (auto& grade : grades)
+    {
+        std::cout << grade << "\n";
+    }
+    std::cout << "\n\n";
 
 
 
