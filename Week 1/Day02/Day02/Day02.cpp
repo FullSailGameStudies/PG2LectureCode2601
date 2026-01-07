@@ -49,8 +49,9 @@ void Print(int& num)
     //Print has access to the variable from a different scope
     num++;
 }
-void Print(std::string& msg)
+void Print(const std::string& msg)
 {
+    //msg = "Batman rules!";
     std::cout << msg;
 }
 void Update(int speed, int& x)
@@ -62,6 +63,10 @@ void Update(int speed, int& x)
 //  1) when the parameter is a class (generally)
 //  2) the method needs to change the variable in another scope
 //  3) to prevent a copy
+
+//when to use const for pass by ref:
+//  when the method does NOT change the parameter
+
 int main()
 {
     int n = 5;
@@ -107,15 +112,16 @@ int main()
     */
     std::vector<float> grades;
     FullSailCourse pg2;
+    pg2.SetName("PG2 2601");
+    std::string name = pg2.GetName();
     pg2.AddGrades(grades);
-    Console::WriteLine("\n\nPG2 2601", ConsoleColor::Cyan);
-    for (auto& grade : grades)
+
+
+    const int UpperLimit = 10;
+    for (int i = 0; i < UpperLimit; i++)
     {
-        std::cout << grade << "\n";
+
     }
-    std::cout << "\n\n";
-
-
 
     /*
         ╔══════════════════╗
