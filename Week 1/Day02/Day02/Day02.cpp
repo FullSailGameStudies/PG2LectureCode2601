@@ -32,6 +32,9 @@ void print(const std::vector<int>& scores)
 
 void printInfo(const std::vector<int>& scores)
 {
+    //size() = # of items that have been added
+    //capacity() = length of the internal array
+    // size() <= capacity()
     std::cout << "size: " << scores.size() << "\tcapacity: " << scores.capacity() << "\n";
 }
 
@@ -132,13 +135,29 @@ int main()
         This is the way you pass by reference and prevent the method from changing the variable.
     */
     std::vector<int> highScores;
-    for (int i = 0; i < 10; ++i)
+    highScores.reserve(10);//sets the internal array to the specific size
+    printInfo(highScores);//size: ?  capacity: ?
+    for (int i = 0; i < 11; ++i)
     {
         highScores.push_back(rand() % 5000);
         printInfo(highScores);//size: ?  capacity: ?
     }
     float avg = average(highScores);
 
+
+    std::string s1 = "Aquaman", s2 = "Batman";
+    //_stricmp 
+    // return...
+    // < 0 if s1 < s2
+    // == 0 if s1 == s2
+    // > 0 if s1 > s2
+    int result = _stricmp(s1.c_str(), s2.c_str());
+    if (result < 0)
+        std::cout << s1 << " is less than " << s2 << "\n";
+    else if(result == 0)
+        std::cout << s1 << " is equal to " << s2 << "\n";
+    else if (result > 0)
+        std::cout << s1 << " is greater than " << s2 << "\n";
 
 
     /*
@@ -170,6 +189,44 @@ int main()
     print(highScores);
 
     //erase all scores < 2500
+    for (int i = 0; i < highScores.size(); i++)
+    {
+        if (highScores[i] < 2500)
+        {
+            highScores.erase(highScores.begin() + i);
+            --i;//move the index backwards
+        }
+    }
+    //OR...
+    for (int i = 0; i < highScores.size(); )
+    {
+        if (highScores[i] < 2500)
+        {
+            highScores.erase(highScores.begin() + i);
+        }
+        else
+            i++;
+    }
+    //OR...
+    //reverse for loop
+    for (int i = highScores.size() - 1; i >= 0; i--)
+    {
+        if (highScores[i] < 2500)
+        {
+            highScores.erase(highScores.begin() + i);
+        }
+    }
+    //iterator
+    for (auto iter = highScores.begin(); iter != highScores.end();)
+    {
+        if (2500 > (*iter))
+        {
+            iter = highScores.erase(iter);
+        }
+        else
+            iter++;
+    }
+
 
     print(highScores);
 
