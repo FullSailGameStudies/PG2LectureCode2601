@@ -26,7 +26,7 @@ void print(const std::vector<int>& scores)
 {
     std::cout << "----SCORES----\n";
     int index = 1;
-    for (int score : scores)
+    for (auto& score : scores)
         std::cout << index++ << ". " << score << "\n";
 }
 
@@ -35,7 +35,11 @@ void printInfo(const std::vector<int>& scores)
     //size() = # of items that have been added
     //capacity() = length of the internal array
     // size() <= capacity()
-    std::cout << "size: " << scores.size() << "\tcapacity: " << scores.capacity() << "\n";
+    Console::Write("size: ", ConsoleColor::Cyan);
+    Console::Write(scores.size(), ConsoleColor::Yellow);
+    Console::Write("\tCapacity: ", ConsoleColor::Cyan);
+    Console::WriteLine(scores.capacity(), ConsoleColor::Yellow);
+    //std::cout << "size: " << scores.size() << "\tcapacity: " << scores.capacity() << "\n";
 }
 
 //copies are "expensive" (memory allocation + value copying)
@@ -57,7 +61,7 @@ void Print(const std::string& msg)
     //msg = "Batman rules!";
     std::cout << msg;
 }
-void Update(int speed, int& x)
+void Update(const int& speed, int& x)
 {
     x += speed;
 }
@@ -98,7 +102,9 @@ int main()
     std::string spider = "Spiderman";
     bool isEven = postFix(spider);
     std::string evenResult = (isEven) ? "TRUE" : "FALSE";
+    Console::SetForegroundColor(ConsoleColor::Red);
     std::cout << spider << "\n" << "Is Even postfix? " << evenResult << "\n";
+    Console::Reset();
 
 
     /*
@@ -119,6 +125,7 @@ int main()
     std::string name = pg2.GetName();
     pg2.AddGrades(grades);
 
+    auto number = 10;
 
     const int UpperLimit = 10;
     for (int i = 0; i < UpperLimit; i++)

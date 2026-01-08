@@ -27,6 +27,8 @@ int main()
     //std::string myName = Input::GetString("What is your name?");
     //int minAge = 0, maxAge = 120;
     //int age = Input::GetInteger("What is your age?", minAge, maxAge);
+    std::cout << 5 << "Hello Gotham\t";
+    Console::Write(25, ConsoleColor::Green);
     Console::Write("Hello Gotham.\t");
     Console::Write("Hello PG2!", ConsoleColor::Red, ConsoleColor::Yellow);
     Console::SetCursorPosition(5, 10);
@@ -126,6 +128,10 @@ int main()
     names.push_back("The Joker");
     names.push_back("Bane");
     names.push_back("Poison Ivy");
+    for (int i = 0; i < names.size(); i++)
+    {
+        Console::WriteLine(names[i]);
+    }
 
 
     /*
@@ -151,7 +157,7 @@ int main()
     // begin() -- returns an iterator pointing to the first element
     // end() – returns an iterator pointing to the element AFTER the last element
     std::cout << "--- for loop:\n";
-    for (size_t i = 0; i < names.size(); i++)
+    for (int i = 0; i < names.size(); i++)
     {
         std::cout << names[i] << "\n";
     }
