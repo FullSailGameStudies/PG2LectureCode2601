@@ -17,9 +17,18 @@ std::string toUpper(const std::string& original)
     return copy;
 }
 
+//ALL recursive loops REQUIRE...
+// 1) an exit condition (base cases) - a line that controls the loop
+//      ONLY used for DETERMINANT loops
+// 2) a recursive condition (a line that calls the method)
 void recursiveLoop(int N)
 {
-    recursiveLoop(N + 1);
+    if (N < 10)
+    {
+        std::cout << N << " ";
+        recursiveLoop(N + 1);
+        Console::Write(N, ConsoleColor::Red);
+    }
 }
 
 unsigned long factorial(unsigned int N)
@@ -55,6 +64,17 @@ unsigned long factorial(unsigned int N)
 
 */
 
+void Bats(int i)
+{
+    if(i < 100)//exit condition (base case)
+    {
+        std::cout << (char)78 << (char)65 << ' ';
+        //++i pre-increment
+        //i++ post-increment
+        Bats(++i);//recursive condition
+    }
+}
+
 int main()
 {
     std::vector<std::string> names = { "Wonder Woman", "Superman", "Batman", "Flash", "Aquaman" };
@@ -83,6 +103,14 @@ int main()
         All recursive methods need an exit condition, something that prevents the loop from continuing.
 
     */
+    for (int i = 0; i < 10; i++)
+    {
+
+    }
+    while (true)
+    {
+        break;
+    }
     int N = 0;
     recursiveLoop(N);
 
@@ -99,7 +127,8 @@ int main()
             }
     */
     //call Bats here.
-
+    int i = 0;
+    Bats(i);
     char c[] = { '\n', 66, 65, 84, 77, 65, 78, 33, 33 };
     for (auto ch : c) std::cout << ch;
 
