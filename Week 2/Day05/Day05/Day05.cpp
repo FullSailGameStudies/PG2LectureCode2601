@@ -7,12 +7,25 @@
 #include <vector>
 #include "Console.h"
 #include "Input.h"
+#include <iomanip> //adds formatting options to cout
 
 enum class Weapon
 {
     Sword, Axe, Spear, Mace
 };
 
+const int NOT_FOUND = -1;
+int LinearSearch(const std::vector<int>& vectorToSearch, int numberToFind)
+{
+    for (int i = 0; i < vectorToSearch.size(); i++)
+    {
+        if (numberToFind == vectorToSearch[i])
+        {
+            return i;
+        }
+    }
+    return NOT_FOUND;
+}
 
 int main()
 {
@@ -37,7 +50,14 @@ int main()
 
     */
     std::vector<int> numbers = { 0,1,2,3,4,5,6 };
-    int searchNumber = 15;
+    int searchNumber = 6;
+    int foundIndex = LinearSearch(numbers, searchNumber);
+    if (foundIndex == NOT_FOUND)
+    {
+        std::cout << searchNumber << " was not found\n";
+    }
+    else
+        std::cout << searchNumber << " was found at index " << foundIndex << "\n";
 
 
 
@@ -63,6 +83,62 @@ int main()
         1) using the insert method.
         2) using [key] = value
     */
+    std::map<std::string, float> menu;
+    //2 ways to get data into a map
+    //1) easy way  map[key] = value;
+    menu["Gyros"] = 11.99f;
+    menu["meat lovers pizza"] = 12.58f;
+    menu["bean burrito"] = 5.99f;
+    menu["bean burrito"] = 6.99f;//overwrites existing value
+
+    //2) not-easy way map.insert(keyValuePair);
+    std::pair<std::string, float> pair =
+        std::make_pair("bacon cheez burger", 7.99f);
+    menu.insert(pair);
+    pair.second = 9.99f;
+    auto wasInserted = menu.insert(pair);//does NOT overwrite existing values
+    if (wasInserted.second)
+        std::cout << "Item was inserted\n";
+    else
+    {
+        std::cout << "that item is already on the menu. Do you want to change the price?\n";
+    }
+
+    float price = menu["dino nuggies"];//side-effect: adds the key-value pair
+    std::cout << "\n\nDino Nuggies costs " << price << "\n";
+
+    //looping
+    std::cout << "\n\nPG2 Cafe\n";
+    for (auto iter = menu.begin(); iter != menu.end(); iter++)
+    {
+        //iterator points to the key-value pair
+        //pair objects have 2 parts: first (key) and second (value)
+        //setw(#) - prints in the # of spaces
+        //right - prints right-aligned
+        std::cout << std::setw(8) << std::right << iter->second;
+        std::cout << " " << iter->first << "\n";
+    }
+    std::cout << "\n\n";
+
+    std::cout << "\n\nPG2 Cafe\n";
+    for (auto& menuItem : menu)
+    {
+        std::cout << std::setw(8) << std::right << menuItem.second;
+        std::cout << " " << menuItem.first << "\n";
+    }
+    std::cout << "\n\n";
+
+    std::cout << "\n\nPG2 Cafe\n";
+    //use structured bindings
+    for (auto& [itemName,itemPrice] : menu)
+    {
+        std::cout << std::setw(8) << std::right << itemPrice;
+        std::cout << " " << itemName << "\n";
+    }
+    std::cout << "\n\n";
+
+
+
     std::map<Weapon, int> dorasBackpack;//will store the counts of each kind of weapon
 
     //returns an iterator and a bool. 
@@ -80,11 +156,22 @@ int main()
     /*
         CHALLENGE:
 
-            Create a map that stores names (string) and grades. Call the variable grades.
-            Add students and grades to your map.
+        Create a map that stores names (string) and numerical grades. 
+        Call the variable grades.
+        Add students and grades to your map.
 
     */
 
+    std::vector<std::string> students = {
+        "Garrett","J'Den", "RJ","Anthony","Jacob","Gavin",
+"Noah","Justin","Mason","Kam","Sincere",
+"Sean","Leo","Christopher","Aidan","Alan","Gretchen","Heather","Jeremy","William"
+    };
+    std::map<std::string, double> grades;
+    for (auto& student : students)
+    {
+        grades[student] = rand() % 10001 / 100.0;
+    }
 
 
 
