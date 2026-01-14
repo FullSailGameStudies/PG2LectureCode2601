@@ -27,6 +27,26 @@ int LinearSearch(const std::vector<int>& vectorToSearch, int numberToFind)
     return NOT_FOUND;
 }
 
+void PrintGrades(const std::map<std::string, double>& course)
+{
+    Console::WriteLine("\nPG2 2601", ConsoleColor::Cyan);
+    for (auto& [student,grade] : course)
+    {
+        Console::SetForegroundColor(
+            //ternary operator (shorthand for if-else)
+            (grade<59.5) ? ConsoleColor::Red :
+            (grade<69.5) ? ConsoleColor::Yellow :
+            (grade<79.5) ? ConsoleColor::Magenta :
+            (grade<89.5) ? ConsoleColor::Cyan :
+            ConsoleColor::Green
+        );
+        std::cout << std::setw(8) << std::right << grade;
+        Console::Reset();
+        std::cout << " " << student << "\n";
+    }
+    std::cout << "\n\n";
+}
+
 int main()
 {
     /*
@@ -137,6 +157,24 @@ int main()
     }
     std::cout << "\n\n";
 
+    std::string itemToFind = "bacon cheez burger";
+    auto menuItemIterator = menu.find(itemToFind);//uses binary search to find the key
+    if (menuItemIterator == menu.end()) //did not find it
+    {
+        std::cout << itemToFind << " is not on the menu. Try Taco Bell\n";
+    }
+    else
+    {
+        float oldPrice = menuItemIterator->second;
+        std::cout << itemToFind << "used to costs " << oldPrice << "\n";
+        //menu[itemToFind] *= 1.1;//this forces another key lookup. NOT optimum
+
+        // TIP:
+        //   when you have the iterator, use the iterator
+        menuItemIterator->second *= 1.1;
+        std::cout << "Now it costs " << menuItemIterator->second << "!! Thanks Putin.\n";
+    }
+
 
 
     std::map<Weapon, int> dorasBackpack;//will store the counts of each kind of weapon
@@ -163,16 +201,35 @@ int main()
     */
 
     std::vector<std::string> students = {
-        "Garrett","J'Den", "RJ","Anthony","Jacob","Gavin",
+        "Garrett","J'Den", "La'Rue", "RJ","Anthony","Jacob","Gavin",
 "Noah","Justin","Mason","Kam","Sincere",
 "Sean","Leo","Christopher","Aidan","Alan","Gretchen","Heather","Jeremy","William"
     };
+    srand(time(NULL));
     std::map<std::string, double> grades;
     for (auto& student : students)
     {
         grades[student] = rand() % 10001 / 100.0;
     }
+    do
+    {
+        PrintGrades(grades);
+        //write some code to find a student and curve the grade
+        //print the map after curving
+        std::string student = Input::GetString("Name of student to curve: ");
+        if (student.empty()) break;
 
+        auto foundStudent = grades.find(student);
+        if (foundStudent == grades.end())
+            std::cout << student << " is not in PG2 this month.\n";
+        else
+        {
+            std::cout << student << " had a grade of " << foundStudent->second << ". ";
+            foundStudent->second = std::min(100.0, foundStudent->second + 5);
+            std::cout << "Now the grade is " << foundStudent->second << "\n";
+        }
+
+    } while (true);
 
 
 
