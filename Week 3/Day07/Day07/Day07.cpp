@@ -43,14 +43,29 @@
 
 */
 
+void Counter()
+{
+	//static data lives in a special section of memory
+	//static data STAYS in memory as long as the app is running
+	static int i = 0;
+	std::cout << i << " ";
+	i++;
+}
 
 int main()
 {
+	for (int i = 0; i < 10; i++)
+	{
+		Counter();
+	}
+	Pistol derry(1, 2);
 	Pistol pewpew(10,15);//calling the ctor
 	//pewpew.Capacity(15);
 	//pewpew.SetNumberOfRounds(10);
 	std::cout << pewpew.GetNumberOfRounds() << "\n";
 	pewpew.Info();
+	derry.Info();
+	Pistol::Report();
 
 	Color clr = { 255,0,0,255 };
 	clr.red = 255;

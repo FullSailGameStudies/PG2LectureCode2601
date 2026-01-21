@@ -31,6 +31,7 @@ public:
 		numberOfRounds_(numRounds),
 		capacity_(cap)
 	{
+		numberOfPistolsCreated++;
 		//use the parameter to initialize the fields
 		//numberOfRounds_ = numRounds;
 		//capacity_ = cap;
@@ -70,6 +71,7 @@ public:
 	}
 
 	void Info();//declaration
+	static void Report();
 
 private:
 	//FIELDS (member variables or data members)
@@ -80,6 +82,10 @@ private:
 	//	  m_iNumberOfRounds, m_numberOfRounds, mNumberOfRounds, _numberOfRounds, numberOfRounds_
 	int numberOfRounds_;
 	int capacity_;
+
+	//all objects share the static data of the class
+	static int numberOfPistolsCreated;
 protected:
 };
+
 
