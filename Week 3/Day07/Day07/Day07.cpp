@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Pistol.h"
+#include "Color.h"
 
 
 /*              CLASSESS
@@ -45,9 +46,15 @@
 
 int main()
 {
-	Pistol pewpew;
-	pewpew.SetNumberOfRounds(10);
+	Pistol pewpew(10,15);//calling the ctor
+	//pewpew.Capacity(15);
+	//pewpew.SetNumberOfRounds(10);
 	std::cout << pewpew.GetNumberOfRounds() << "\n";
+	pewpew.Info();
+
+	Color clr = { 255,0,0,255 };
+	clr.red = 255;
+
 
 	/*
 		CHALLENGE:

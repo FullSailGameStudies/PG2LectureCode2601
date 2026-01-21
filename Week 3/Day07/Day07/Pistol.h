@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 class Pistol
 {
 	//access modifiers: controls who can see the parts
@@ -7,6 +8,35 @@ class Pistol
 	//protected: this class and all descendent classes can see it
 
 public:
+	//constructors (ctor)
+	//	used to initialize the object when you create it
+	//	initialize the fields
+	//  purpose is to have an object that is ready to be used
+	//		when you create it
+	//	IF you do not create a ctor, the compiler will give you a default ctor
+	//  IF you create a ctor, the compiler's ctor is not created
+	//	RULES:
+	//	  1) MUST be named the same as the class
+	//    2) CANNOT have a return type
+
+	//default ctor: has no parameters
+	//Pistol()
+	//{
+	//	numberOfRounds_ = 0;
+	//	capacity_ = 10;
+	//}
+	//preferred way: use the member initialization list
+	Pistol(int numRounds, int cap) : 
+		//list the fields
+		numberOfRounds_(numRounds),
+		capacity_(cap)
+	{
+		//use the parameter to initialize the fields
+		//numberOfRounds_ = numRounds;
+		//capacity_ = cap;
+	}
+	
+
 	//getters/setters (gatekeepers - control access to fields outside of the class)
 	//   usually public
 	//getters (accessors)
@@ -38,6 +68,8 @@ public:
 		if (cap > 0 && cap <= 140)
 			capacity_ = cap;
 	}
+
+	void Info();//declaration
 
 private:
 	//FIELDS (member variables or data members)
