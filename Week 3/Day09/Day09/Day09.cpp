@@ -2,6 +2,9 @@
 //
 
 #include <iostream>
+#include "Pistol.h"
+#include "Knife.h"
+#include <vector>
 
 
 class base
@@ -56,9 +59,104 @@ public:
 int Car::mNumberOfCarsMade = 0;
 
 
+void ShowHand(Weapon* current)
+{
+	current->showMe();//run-time polymorphism
+}
+void ShowInventory(std::vector<Weapon*>& backpack)
+{
+	std::cout << "\nInventory: ";
+	for (auto& wpn : backpack)
+	{
+		wpn->showMe();
+	}
+	std::cout << "\n";
+}
+
 
 int main()
 {
+	int num = 5;
+	int* pNum;
+	//use the address-of to point the variable somewhere
+	pNum = &num;
+	int& rNum = num;
+	std::cout << num << "\n" << rNum << "\n";
+	std::cout << pNum << "\n" << *pNum << "\n";
+	//*ptr derefences the pointer
+
+	//this car object lives on the stack
+	Car gsRide(1984);
+	Car* pRide = &gsRide;
+	std::cout << pRide << "\n";
+	std::cout << pRide->mModelYear << "\n";
+
+
+	{
+		int local = 10;
+	}//stack variables get removed when they go out of scope
+	//std::cout << local;
+
+	//different sections of computer memory:
+	//   stack - local variables of a method
+	//   heap - dynamic variables. lifetime is NOT scope dependent
+	//		variables created in the heap exists until you delete it
+	//		EVERY time you see "= new" you are dealing with heap memory
+	//		PROBLEMS:
+	//			- memory leaks. heap memory that hasn't been deleted and can no longer be accessed
+	//			- read access violation
+	//   static - static variables
+	//   code
+
+	{
+		//heapCar is a stack variable
+		//the car object in on the heap
+		Car* heapCar = new Car(2026);
+		std::cout << heapCar << "\n";
+		pRide = heapCar;
+	}
+	std::cout << pRide->mModelYear << "\n";
+	delete pRide;//deallocates heap memory
+	//std::cout << pRide->mModelYear << "\n";
+	//best practice: assign nullptr to the ptr
+	pRide = nullptr;
+	if(pRide != nullptr)//don't use the pointer if it's null
+	{
+		std::cout << pRide->mModelYear << "\n";
+	}
+	std::cout << pRide << "\n";
+
+
+	Pistol p1(100, 50, 10, 5);
+	Knife stabby(3, 5, true);
+	//UPCASTING:
+	//	casting from a DERIVED type (Pistol) to a BASE type (Weapon)
+	Weapon* currentWpn = &p1;
+	ShowHand(currentWpn);
+	currentWpn = &stabby;
+	ShowHand(currentWpn);
+
+	std::vector<Weapon*> backpack;
+	backpack.push_back(&p1);
+	backpack.push_back(&stabby);
+	ShowInventory(backpack);
+
+	//unique ptr will manage the memory for you
+	//  when it goes out of scope, it deletes the memory
+	//only ONE unique ptr can point to the object
+
+	//use make_unique to create a unique_ptr
+	std::unique_ptr<Pistol> uPistol =
+		std::make_unique<Pistol>(100, 50, 10, 5);
+
+	//std::move will assign the ownership to a different ptr
+	std::unique_ptr<Pistol> uP2 = std::move(uPistol);
+
+
+	{
+		std::unique_ptr<Knife> uKnife =
+			std::make_unique<Knife>(3, 5, true);
+	}//uKnife is delete automatically
 
 	/*
 		╔════════════╗

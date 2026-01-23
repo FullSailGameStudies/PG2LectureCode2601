@@ -48,14 +48,17 @@ public:
 */
 class base
 {
-private:
+protected:
 	int mNum;
 public:
 	base(int num) : mNum(num)
 	{
 
 	}
-	void print()
+	virtual void DoIt() = 0;//pure virtual
+
+	//1. mark it as virtual
+	virtual void print()
 	{
 		std::cout << "Hello base " << mNum << "\n";
 	}
@@ -68,4 +71,21 @@ private:
 public:
 	derived(std::string str, int num) : base(num), mStr(str)
 	{ }
+
+	void DoIt() override
+	{
+		std::cout << "Did it\n";
+	}
+
+	//2. add a new method in the derived named the same as the base
+	//   everything has to match: the return type, name, types and order of parameters
+	void print() override
+	{
+		//how to override:
+		//  full override: don't call the base version
+		//  extension override: call the base version
+
+		base::print();
+		std::cout << "\tDerived base " << mStr << "\n";
+	}
 };

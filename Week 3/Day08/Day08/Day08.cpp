@@ -10,6 +10,10 @@
 
 int main()
 {
+	derived derry("Bob",10);
+	derry.print();
+
+	//base b1(5);
 	/*
 		╔═══════════════╗
 		║  Inheritance  ║
