@@ -51,6 +51,28 @@ int main()
         Lecture code: set a filePath variable, open an output file, write some csv data to it
     */
 
+    std::string name = "2601.csv";
+    std::string path = "C:/temp/2601/";//windows uses \ as a directory separator
+    std::string finalPath = path + name;
+    char delimiter = '$';
+    //1) open the file
+    //  - check if the file is open
+    //      if not, give the user an error message
+    std::ofstream outFile(finalPath);
+    if (outFile.is_open())
+    {
+        //2) write to the file in CSV format
+        //  use the '<<' (insertion operator)
+        outFile << "Batman is the best" << delimiter << 5;
+        outFile << delimiter << true << delimiter;
+        outFile << 12.7 << delimiter << "Aquaman smells";
+    }
+    else
+        std::cout << finalPath << " could not be opened.\n";
+
+    //3) CLOSE the file
+    //      - good programmging practice: close the file ASAP
+    outFile.close();
 
     /*
 
@@ -65,6 +87,57 @@ int main()
         Lecture code: using the filePath variable, open an input file, use getline to read a line, print the line
     */
 
+    //1) open the file
+    std::ifstream inFile(finalPath);
+    if (inFile.is_open())
+    {
+        std::string line;
+        //2) read the file
+        //getline reads the stream until it reaches a '\n' OR the end of the stream
+        std::getline(inFile, line);
+        std::cout << line << "\n";
+
+        std::stringstream lineStream(line);
+
+        //parse the string to get the data
+        std::string data;
+        //getline reads the stream until it reaches a '$' OR the end of the stream
+        std::getline(lineStream, data, delimiter);
+        std::cout << data << "\n";
+
+        //try-catch
+        // put the code the might throw an exception in a try block
+        try
+        {
+            std::getline(lineStream, data, delimiter);
+            int iData = std::stoi(data);
+            std::cout << iData << "\n";
+        }
+        //catch the possible exception
+        catch (const std::exception& ex)
+        {
+            //handle the exception
+            std::cout << "Error processing " << data << "\n";
+        }
+
+
+        std::getline(lineStream, data, delimiter);
+        bool bData = data == "1";
+        std::cout << bData << "\n";
+
+        std::getline(lineStream, data, delimiter);
+        double dData = std::stod(data);
+        std::cout << dData << "\n";
+
+        std::getline(lineStream, data, delimiter);
+        std::cout << data << "\n";
+    }
+    else
+        std::cout << finalPath << " could not be opened.\n";
+
+    //3) CLOSE the file
+    //      - good programmging practice: close the file ASAP
+    inFile.close();
 
     /*
 
