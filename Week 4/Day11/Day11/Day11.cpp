@@ -51,6 +51,8 @@ int main()
     }
     out.close();
 
+    Car userCar("1967,Ford,Shelby Mustang GT500", ',');
+
     /*
         ╔═════════════╗
         ║ Serializing ║
@@ -81,4 +83,52 @@ int main()
             split each car to get the car details
 
     */
+    fileName = "garage.csv";
+    std::ifstream in(fileName);
+    if (in.is_open())
+    {
+        std::string carData;
+        std::getline(in, carData);
+        Car gsCar(carData, delim);
+        std::cout << "\n\nG's Car: " << gsCar.vehicleInformation() << "\n";
+    }
+    else
+    {
+        std::cout << fileName << " could not be opened.\n";
+    }
+    in.close();
+
+    //deserialize the gsGarage to load a vector of car objects
+    //after loading, print the details of each car
+    std::vector<Car> loadedCars;
+    fileName = "gsGarage.csv";
+    in.open(fileName);
+    if (in.is_open())
+    {
+        //loop while there is still data in the file
+        while (not in.eof())
+        {
+            //load the line from the file
+            std::string carData;
+            std::getline(in, carData);
+
+            //create the object with the line
+            Car newCar(carData, delim);
+
+            //store the object in a vector
+            loadedCars.push_back(newCar);
+        }
+    }
+    else
+    {
+        std::cout << fileName << " could not be opened.\n";
+    }
+    in.close();
+
+    std::cout << "\n\nLoaded Cars: " << loadedCars.size() << "\n";
+    for (auto& car : loadedCars)
+    {
+        std::cout << car.vehicleInformation() << "\n";
+    }
+
 }
